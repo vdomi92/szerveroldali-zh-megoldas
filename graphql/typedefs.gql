@@ -1,0 +1,67 @@
+scalar Date
+
+type Query {
+    project(id: ID!): Project
+    codeGenerator: String!
+    statistics: Statistics!
+}
+
+type Mutation {
+    createEmployee(employee: CreateEmployeeInput!): Employee!
+    deleteEmployees(emails: [String!]!): EmployeeDeletionResult!
+}
+
+input CreateEmployeeInput{
+    name: String!
+    email: String!
+}
+
+type EmployeeDeletionResult {
+    invalid: [String!]!
+    deleted: [String!]!
+}
+
+type Statistics {
+    projectsPairTasks: Int!
+    expiredTasks: Int!
+    employeesWithoutTasks: Int!
+}
+
+type Employee {
+    id: ID!
+    name: String!
+    email: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Project {
+    id: ID!
+    name: String!
+    description: String!
+    deadline: DateTime!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+
+    tasks: [Task!]!
+    progress: Float!
+    employees: [Employee!]!
+}
+
+type Task {
+    id: ID!
+    name: String!
+    weight: Float!
+    description: String!
+    deadline: DateTime!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+
+    progress: Int!
+}
+
+type Progress {
+    id: ID!
+    progress: Int!
+    comment: String
+}
